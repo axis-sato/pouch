@@ -1,0 +1,46 @@
+version: "3"
+services:
+  web:
+    build:
+      context: ./web
+    tty: true
+    volumes:
+      - ./web:/usr/src/app
+    ports:
+      - "3000:3000"
+
+  api:
+    build:
+      context: ./api/api
+    volumes:
+      - ./api/api:/usr/src/app
+    ports:
+      - "8888:8080"
+    links:
+      - db:db
+  
+  db:
+    build:
+      context: ./api/db
+    volumes:
+      - ./api/db/my.cnf:/etc/mysql/conf.d/my.cnf
+      - ./api/db/init.d:/docker-entrypoint-initdb.d
+      - ./log/mysql:/var/log/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=secret
+      - MYSQL_DATABASE=pouch
+      - MYSQL_USER=pouch
+      - MYSQL_PASSWORD=secret
+    expose:
+      - 3306
+    ports:
+      - 33061:3306
+
+  swagger:
+    image: swaggerapi/swagger-ui
+    volumes:
+      - ./api/swagger/api.yaml:/usr/share/nginx/html/api.yaml
+    environment:
+      API_URL: api.yaml
+    ports:
+      - "8880:8080"
