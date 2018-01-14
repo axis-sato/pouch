@@ -26,6 +26,7 @@ services:
     build:
       context: ./api/db
     volumes:
+      - db:/var/lib/mysql
       - ./api/db/my.cnf:/etc/mysql/conf.d/my.cnf
       - ./api/db/init.d:/docker-entrypoint-initdb.d
       - ./log/mysql:/var/log/mysql
@@ -47,3 +48,6 @@ services:
       API_URL: api.yaml
     ports:
       - "8880:8080"
+
+volumes:
+  db:
