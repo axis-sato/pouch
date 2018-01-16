@@ -43,9 +43,9 @@ services:
   swagger:
     image: swaggerapi/swagger-ui
     volumes:
-      - ./api/swagger/api.yaml:/usr/share/nginx/html/api.yaml
+      - ./api/swagger/api.json:/usr/share/nginx/html/api.json
     environment:
-      API_URL: api.yaml
+      API_URL: api.json
     ports:
       - "8880:8080"
 
