@@ -18,7 +18,7 @@ services:
       - ./api/api:/usr/src/app
       - /usr/src/app/node_modules
     environment:
-      - NODE_ENV=dev
+      - NODE_ENV=development
     ports:
       - "8888:8080"
     links:
