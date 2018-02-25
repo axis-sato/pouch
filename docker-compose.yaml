@@ -45,6 +45,7 @@ services:
   swagger:
     image: swaggerapi/swagger-ui
     volumes:
+      - ./api/swagger/simple_api.json:/usr/share/nginx/html/simple_api.json
       - ./api/swagger/api.json:/usr/share/nginx/html/api.json
       - ./api/swagger/simple_api.json:/usr/share/nginx/html/simple_api.json
     environment:
